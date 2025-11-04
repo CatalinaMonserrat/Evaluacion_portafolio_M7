@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Autor, Editorial, Libro, Cliente, Pedido, DetallePedido, PerfilUsuario
+from .models import Categoria, Autor, Editorial, Libro, Cliente, Pedido, DetallePedido, PerfilUsuario, Boletin
 
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
@@ -8,4 +8,4 @@ class LibroAdmin(admin.ModelAdmin):
     search_fields = ("titulo", "autor__nombre", "isbn")
     filter_horizontal = ("categorias",)
 
-admin.site.register([Categoria, Autor, Editorial, Cliente, Pedido, DetallePedido, PerfilUsuario])
+admin.site.register([Categoria, Autor, Editorial, Cliente, Pedido, DetallePedido, PerfilUsuario, Boletin])
