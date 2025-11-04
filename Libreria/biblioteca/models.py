@@ -78,3 +78,14 @@ class PerfilUsuario(models.Model):  # 1–1 con User
     def __str__(self):
         return f"Perfil de {self.user.username}"
     
+
+# Creación Clase independiente
+
+class Boletin(models.Model):
+    titulo = models.CharField(max_length=150)
+    contenido = models.TextField(blank=True)
+    publicado = models.DateField(auto_now_add=True)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.titulo
