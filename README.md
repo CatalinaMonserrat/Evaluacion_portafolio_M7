@@ -135,6 +135,44 @@ Libreria/
 | Documentación (README + .md)                   |    ✅   | Este archivo y `consultas_orm.md`              |
 
 
+## Capturas del sitio web
+- Página principal (Catálogo de libros)
+
+![Capturas](Capturas/pagina_principal.png)
+
+![Capturas](Capturas/lista_libros.png)
+
+- Carrito de compra y Checkout
+
+![Capturas](Capturas/carrito_compra.png)
+
+![Capturas](Capturas/Checkout.png)
+
+- Panel de Ventas
+
+![Capturas](Capturas/panel_ventas.png)
+
+- Formulario para agregar nuevo libro
+
+![Capturas](Capturas/agregar_libro.png)
+
+- Edición y eliminación de registros
+
+![Capturas](Capturas/eliminar_libro.png)
+
+![Capturas](Capturas/editar_libro.png)
+
+- Autenticación de usuarios
+
+![Capturas](Capturas/ingres_usuario.png)
+
+- Panel de administración
+
+![Capturas](Capturas/Admin.png)
+
+- Todas las imágenes se encuentran en la carpeta /Capturas.
+
+
 ## Autora 
 - Catalina Monserrat Villegas Ortega 
 - Bootcamp Talento Digital 
