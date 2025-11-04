@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-3">Panel de Ventas</h2>
+
+    {% if resumen %}
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <div class="fw-bold">Ventas hoy</div>
+                <div class="fs-4">${{ resumen.ventas_hoy|default:0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <div class="fw-bold">Unidades vendidas</div>
+                <div class="fs-4">{{ resumen.unidades|default:0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded">
+                <div class="fw-bold">Pedidos del mes</div>
+                <div class="fs-4">{{ resumen.pedidos_mes|default:0 }}</div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-muted">Aún no hay datos para mostrar.</p>
+    {% endif %}
+
+    <hr class="my-4">
+    <a href="{% url 'biblioteca:libro_lista' %}" class="btn btn-primary">Ir al catálogo</a>
+</div>
+{% endblock %}

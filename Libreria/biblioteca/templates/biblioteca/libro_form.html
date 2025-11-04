@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo }} · Librería{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 920px;">
+    <h1 class="mb-3">{{ titulo }}</h1>
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <label class="form-label">Título</label>
+                        {{ form.titulo }}
+                        {% for e in form.titulo.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">ISBN</label>
+                        {{ form.isbn }}
+                        <div class="form-text">Formato libre (único).</div>
+                        {% for e in form.isbn.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Autor</label>
+                        {{ form.autor }}
+                        {% for e in form.autor.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Editorial</label>
+                        {{ form.editorial }}
+                        {% for e in form.editorial.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-8">
+                        <label class="form-label">Categorías</label>
+                        {{ form.categorias }}
+                        <div class="form-text">Mantén presionado Ctrl/Cmd para seleccionar múltiples.</div>
+                        {% for e in form.categorias.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Publicado el</label>
+                        {{ form.publicado }}
+                        {% for e in form.publicado.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Precio</label>
+                        {{ form.precio }}
+                        {% for e in form.precio.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Stock</label>
+                        {{ form.stock }}
+                        {% for e in form.stock.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <div class="form-check">
+                            {{ form.activo }}
+                            <label class="form-check-label ms-1">Activo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer bg-white d-flex gap-2">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+                <a href="{% url 'biblioteca:libro_lista' %}" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

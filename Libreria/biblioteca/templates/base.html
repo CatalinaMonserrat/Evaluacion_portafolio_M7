@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{% block title %}Librería{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-0">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="{% url 'biblioteca:home' %}">Bookstore</a>
+            <div class="ms-auto d-flex gap-2">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'biblioteca:libro_lista' %}">Catálogo</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'biblioteca:carrito' %}">Carrito</a>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" class="m-0">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Salir</button>
+                </form>
+                {% else %}
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'login' %}">Ingresar</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- MENSAJES -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for m in messages %}
+        <div class="alert alert-{{ m.tags|default:'info' }} mb-2">{{ m }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- CONTENIDO -->
+    <main class="flex-fill">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto bg-black text-light">
+        <div class="container py-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6">
+                    <h6 class="mb-1">Bookstore</h6>
+                    <small class="text-muted">Gestión de catálogo, ventas y clientes.</small>
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-unstyled mb-0">
+                        <li><a class="link-secondary text-decoration-none"
+                                href="{% url 'biblioteca:libro_lista' %}">Catálogo</a></li>
+                        <li><a class="link-secondary text-decoration-none"
+                                href="{% url 'biblioteca:panel_ventas' %}">Panel de ventas</a></li>
+                        <li><a class="link-secondary text-decoration-none"
+                                href="{% url 'biblioteca:carrito' %}">Carrito</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 text-md-end">
+                    <small class="text-muted">© {{ now|date:"Y" }} Librería — Hecho con Django</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

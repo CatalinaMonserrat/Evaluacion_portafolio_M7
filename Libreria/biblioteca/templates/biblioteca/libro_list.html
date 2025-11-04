@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Catálogo · Librería{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+        <h1 class="m-0">Libros</h1>
+        <a href="{% url 'biblioteca:libro_crear' %}" class="btn btn-primary">Nuevo Libro</a>
+    </div>
+
+    <!-- Búsqueda -->
+    <form method="get" class="row g-2 align-items-center mb-4">
+        <div class="col-sm-8 col-md-6 col-lg-4">
+            <input type="text" name="q" value="{{ q }}" class="form-control"
+                placeholder="Buscar por título, ISBN o autor…">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            <a href="{% url 'biblioteca:libro_lista' %}" class="btn btn-outline-secondary">Limpiar</a>
+        </div>
+        {% if page_obj %}
+        <div class="col-12 col-md-auto ms-auto">
+            <small class="text-muted">
+                Mostrando {{ page_obj.start_index }}–{{ page_obj.end_index }} de {{ page_obj.paginator.count }}
+            </small>
+        </div>
+        {% endif %}
+    </form>
+
+    {% if libros %}
+    <div class="row g-3">
+        {% for l in libros %}
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body d-flex flex-wrap align-items-center gap-3">
+                    <div class="me-auto">
+                        <h5 class="mb-1">
+                            <a class="text-decoration-none" href="{% url 'biblioteca:libro_detalle' l.id %}">
+                                {{ l.titulo }}
+                            </a>
+                        </h5>
+                        <div class="text-muted small mb-1">
+                            {{ l.autor }}{% if l.isbn %} · ISBN {{ l.isbn }}{% endif %}
+                        </div>
+                        {% if l.categorias.all %}
+                        <div class="d-flex flex-wrap gap-1">
+                            {% for c in l.categorias.all|slice:":4" %}
+                            <span class="badge text-bg-light border">{{ c.nombre }}</span>
+                            {% endfor %}
+                            {% if l.categorias.count > 4 %}
+                            <span class="badge text-bg-secondary">+{{ l.categorias.count|add:"-4" }}</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-end ms-auto">
+                        <div class="fw-bold fs-5">${{ l.precio }}</div>
+                        {% if l.stock > 0 %}
+                        <span class="badge text-bg-success">Stock {{ l.stock }}</span>
+                        {% else %}
+                        <span class="badge text-bg-danger">Sin stock</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="ms-auto d-flex gap-2">
+                        <a href="{% url 'biblioteca:agregar_al_carrito' l.id %}" class="btn btn-sm btn-outline-primary">
+                            Agregar
+                        </a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'biblioteca:libro_editar' l.id %}"
+                            class="btn btn-sm btn-outline-secondary">Editar</a>
+                        <a href="{% url 'biblioteca:libro_eliminar' l.id %}"
+                            class="btn btn-sm btn-outline-danger">Eliminar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link"
+                    href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Anterior</a></li>
+            {% else %}<li class="page-item disabled"><span class="page-link">Anterior</span></li>{% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num >= page_obj.number|add:"-2" and num <= page_obj.number|add:"2" %} <li class="page-item"><a
+                    class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link"
+                        href="?q={{ q }}&page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                {% else %}<li class="page-item disabled"><span class="page-link">Siguiente</span></li>{% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <div class="alert alert-info">No hay libros aún.</div>
+    {% endif %}
+</div>
+{% endblock %}

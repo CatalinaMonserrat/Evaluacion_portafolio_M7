@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-3">Checkout</h2>
+    <form method="post" class="row g-3">{% csrf_token %}
+        <div class="col-md-6">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="nombre" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="col-12">
+            <label class="form-label">Dirección</label>
+            <input type="text" name="direccion" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+            <h5 class="mt-3">Resumen</h5>
+            <ul class="list-group">
+                {% for it in items %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ it.libro.titulo }} × {{ it.cantidad }}</span>
+                    <span>${{ it.subtotal }}</span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between fw-bold">
+                    <span>Total</span><span>${{ total|default:0 }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-12 d-flex gap-2">
+            <a href="{% url 'biblioteca:libro_lista' %}" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">Confirmar pago</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,10 @@ INSTALLED_APPS = [
     'biblioteca',
 ]
 
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "biblioteca:libro_lista"
+LOGOUT_REDIRECT_URL = "biblioteca:home"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -43,7 +48,7 @@ ROOT_URLCONF = 'Libreria.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,8 +68,12 @@ WSGI_APPLICATION = 'Libreria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'libreria_db',          # Nombre de la base de datos
+        'USER': 'postgres',        # Usuario de porstgres
+        'PASSWORD': 'root', # Contraseña
+        'HOST': 'localhost',         # Servidor de MySQL
+        'PORT': '5432',              # Puerto por defecto
     }
 }
 
@@ -103,9 +112,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+STATIC_URL = "static/"
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

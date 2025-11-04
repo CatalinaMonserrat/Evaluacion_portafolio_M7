@@ -1,0 +1,88 @@
+/* === Colores base (tema oscuro + hero azul suave) === */
+:root {
+    --black-true: #0b0d0f;
+    /* negro profundo para navbar/footer */
+    --hero-a: #f5efe6;
+    /* crema muy suave (match con ilustración) */
+    --hero-b: #c9ddff;
+    /* azul pastel */
+    --hero-c: #9ec5fe;
+    /* azul medio */
+    --accent: #4f46e5;
+    /* acento para hover/enlaces */
+}
+
+/* Navbar y footer negros */
+.bg-black {
+    background-color: var(--black-true) !important;
+}
+
+.navbar.bg-black,
+footer.bg-black {
+    color: #f8f9fa;
+}
+
+.navbar.bg-black .navbar-brand,
+.navbar.bg-black .btn,
+.navbar.bg-black a {
+    color: #f8f9fa;
+}
+
+.navbar.bg-black .btn.btn-outline-primary {
+    border-color: #adb5bd;
+    color: #f8f9fa;
+}
+
+.navbar.bg-black .btn.btn-outline-primary:hover {
+    background: #f8f9fa;
+    color: #000;
+}
+
+/* Footer enlaces */
+footer a {
+    color: #e9ecef;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--accent);
+}
+
+/* HERO azul suave */
+.hero-soft {
+    background: linear-gradient(120deg, var(--hero-a) 0%, var(--hero-b) 50%, var(--hero-c) 100%);
+}
+
+.hero-soft .btn.btn-light {
+    background: #0d6efd;
+    color: #fff;
+    border: 0;
+    /* que destaque sobre fondo claro */
+}
+
+.hero-soft .btn.btn-outline-light {
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+
+.hero-soft .btn.btn-outline-light:hover {
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* Tarjetas del home */
+.card {
+    border-color: #e9ecef;
+}
+
+.card .btn-primary {
+    background: #4f46e5;
+    border-color: #4f46e5;
+}
+
+.card .btn-primary:hover {
+    filter: brightness(0.9);
+}
+
+.card .ratio{ border-bottom:1px solid #f1f3f5; }
+.object-fit-cover{ object-fit:cover; width:100%; height:100%; }

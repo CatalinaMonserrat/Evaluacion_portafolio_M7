@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Eliminar Libro · Librería{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 720px;">
+    <div class="card shadow-sm border-danger">
+        <div class="card-header bg-danger text-white">
+            <strong>Confirmar eliminación</strong>
+        </div>
+
+        <div class="card-body">
+            <p class="mb-3">
+                ¿Deseas eliminar
+                <strong>{{ obj.titulo }}</strong>
+                — <span class="text-muted">{{ obj.autor }}</span>?
+            </p>
+
+            <div class="alert alert-warning d-flex gap-2 align-items-center">
+                <span class="fw-semibold">Atención:</span>
+                Esta acción es permanente y no se puede deshacer.
+            </div>
+
+            <form method="post" class="d-flex gap-2">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    Sí, eliminar
+                </button>
+                <a href="{% url 'biblioteca:libro_lista' %}" class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a class="small text-decoration-none" href="javascript:history.back()">← Volver</a>
+    </div>
+</div>
+{% endblock %}
