@@ -70,12 +70,8 @@ WSGI_APPLICATION = 'Libreria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'libreria_db',          # Nombre de la base de datos
-        'USER': 'postgres',        # Usuario de porstgres
-        'PASSWORD': 'root', # Contraseña
-        'HOST': 'localhost',         # Servidor de MySQL
-        'PORT': '5432',              # Puerto por defecto
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
